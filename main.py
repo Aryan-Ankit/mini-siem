@@ -42,5 +42,10 @@ events = [
    }
 ]
 
+failed_attempts = {} 
+
 for event in events:
-    print(event)
+    if event["username"] == "Alice":
+        failed_attempts += 1
+
+print("Failed attempts:", failed_attempts)
