@@ -39,13 +39,41 @@ events = [
        "username": "Alice",
        "event_type": "login_success",
        "source_ip": "192.168.1.21",
-   }
+   },
+
+   {
+       "timestamp": "10:00:08",
+       "username": "Bob",
+       "event_type": "login_failed",
+       "source_ip": "192.168.1.30",
+   },
+
+   {
+          "timestamp": "10:00:08",
+          "username": "Bob",
+          "event_type": "login_failed",
+          "source_ip": "192.168.1.30",
+    },
+
+    {
+           "timestamp": "10:00:08",
+           "username": "Charlie",
+           "event_type": "login_failed",
+           "source_ip": "192.168.1.50",
+    }
 ]
 
-failed_attempts = {} 
+failed_attempts = {}
 
 for event in events:
-    if event["username"] == "Alice":
-        failed_attempts += 1
+    if event["event_type"] == "login_failed":
 
-print("Failed attempts:", failed_attempts)
+        username = event["username"]
+
+        if username not in failed_attempts:
+           failed_attempts[username].append(event["timestamp"]) = 1
+
+        else :
+           failed_attempts[username].append(event["timestamp"]) += 1
+        
+print(failed_attempts)
