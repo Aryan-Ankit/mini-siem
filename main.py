@@ -80,9 +80,11 @@ for event in events:
 
 for username, timestamp in failed_attempts.items():
 
+ failed_count = len(timestamp)
+
  first_time = datetime.strptime(timestamp[0], "%H:%M:%S")
  last_time = datetime.strptime(timestamp[-1], "%H:%M:%S")
 
  difference = last_time - first_time
 
- print(username, difference)
+ print(username, failed_count, difference)
