@@ -35,13 +35,6 @@ events = [
    },
 
    {
-       "timestamp": "10:00:25",
-       "username": "Alice",
-       "event_type": "login_success",
-       "source_ip": "192.168.1.21",
-   },
-
-   {
        "timestamp": "10:00:08",
        "username": "Bob",
        "event_type": "login_failed",
@@ -66,11 +59,14 @@ events = [
 from datetime import datetime, timedelta
 
 failed_attempts = {}
+source_ips = {}
 
 for event in events: 
     if event["event_type"] == "login_failed":
 
         username = event["username"]
+        source_ips[username] = event["source_ip"]
+ 
 
         if username not in failed_attempts:
             failed_attempts[username] = []
@@ -90,5 +86,6 @@ for username, timestamp in failed_attempts.items():
 
  if failed_count >= 5 and difference <= limit:
     print("Brute-force attack detected:", username)
+    print("Source IP:", source_ips[username])
 
- print(username, failed_count, difference)
+ print(username, failed_count, difference) 
