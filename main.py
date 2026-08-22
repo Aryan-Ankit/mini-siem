@@ -63,7 +63,7 @@ events = [
     }
 ]
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 failed_attempts = {}
 
@@ -85,6 +85,10 @@ for username, timestamp in failed_attempts.items():
  first_time = datetime.strptime(timestamp[0], "%H:%M:%S")
  last_time = datetime.strptime(timestamp[-1], "%H:%M:%S")
 
- difference = last_time - first_time
+ difference = last_time - first_time 
+ limit = timedelta(minutes=2)
+
+ if failed_count >= 5 and difference <= limit:
+    print("Brute-force attack detected:", username)
 
  print(username, failed_count, difference)
